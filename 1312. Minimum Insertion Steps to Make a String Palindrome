@@ -1,0 +1,43 @@
+
+
+/*
+
+Related Topics:-
+-String
+-Dynamic Programming
+
+*/
+
+
+/*
+
+Hint
+(1/2)
+Is dynamic programming suitable for this problem ?
+If we know the longest palindromic sub-sequence is x and the length of the string is n then, what is the answer to this problem? It is n - x as we need n - x insertions to make the remaining characters also palindrome.
+
+*/
+
+
+
+class Solution {
+    public int minInsertions(String s) {
+        int n = s.length();
+        int[] dp = new int[n];
+        for (int i = n - 2; i >= 0; i--) {
+            int prev = 0;
+            for (int j = i + 1; j < n; j++) {
+                int temp = dp[j];
+                if (s.charAt(i) == s.charAt(j)) {
+                    dp[j] = prev;
+                } else {
+                    dp[j] = Math.min(dp[j], dp[j-1]) + 1;
+                }
+                prev = temp;
+            }
+        }
+        return dp[n-1];
+    }
+}
+
+
